@@ -1,8 +1,11 @@
 package day_5;
 
+import day_5.crateMover.CrateMover;
+import day_5.crateMover.CrateMover9000;
+import day_5.crateMover.CrateMover9001;
+import day_5.crateMover.CrateMoverVersion;
+
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
@@ -23,7 +26,7 @@ public class CargoPort {
 		craneSetupLine = inputStack.pop();
 		this.setupCrates(inputStack, setupCranes());
 		switch (crateMoverVersion) {
-			case CRATE_MOVER_1000 -> this.crateMover = new CrateMover1000(craneSetup);
+			case CRATE_MOVER_9000 -> this.crateMover = new CrateMover9000(craneSetup);
 			case CRATE_MOVER_9001 -> this.crateMover = new CrateMover9001(craneSetup);
 		}
 	}

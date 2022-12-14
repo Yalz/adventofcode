@@ -1,4 +1,4 @@
-package day_5;
+package day_5.crateMover;
 
 import java.util.List;
 import java.util.regex.Matcher;

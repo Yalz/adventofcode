@@ -7,17 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static day_5.CrateMoverVersion.CRATE_MOVER_1000;
-import static day_5.CrateMoverVersion.CRATE_MOVER_9001;
+import static day_5.crateMover.CrateMoverVersion.CRATE_MOVER_9000;
+import static day_5.crateMover.CrateMoverVersion.CRATE_MOVER_9001;
 import static org.junit.Assert.assertEquals;
 
 public class CraneSetupTest {
 	@Test
-	public void test_craneSetup() throws IOException {
+	public void test_crateMover9000Setup() throws IOException {
 		List<String> input = Files.lines(Paths.get("src/test/resources/day_5/demo.txt"))
 				.toList();
 
-		CargoPort cargoPort = new CargoPort(CRATE_MOVER_1000, input);
+		CargoPort cargoPort = new CargoPort(CRATE_MOVER_9000, input);
 
 		assertEquals(2, cargoPort.craneSetup.get("1").size());
 		assertEquals(3, cargoPort.craneSetup.get("2").size());
