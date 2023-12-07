@@ -30,6 +30,7 @@ public class WeatherCalibratorTest {
 		assertEquals(14, wc.parseLine("zoneight234"));
 		assertEquals(76, wc.parseLine("7pqrstsixteen"));
 		assertEquals(38, wc.parseLine("37dqpbmqxssvznrzp2nvzcvlnsdoneightq"));
+		assertEquals(14, wc.parseLine("one5onefour"));
 	}
 
 	@Test
@@ -38,5 +39,13 @@ public class WeatherCalibratorTest {
 
 		assertEquals(142, weatherCalibrator.calibrate("src/test/resources/day_1/ex1.txt"));
 		assertEquals(281, weatherCalibrator.calibrate("src/test/resources/day_1/ex2.txt"));
+
+	}
+
+	@Test
+	public void testAdvanced() throws IOException {
+		WeatherCalibrator weatherCalibrator = new WeatherCalibrator();
+
+		assertEquals(54082, weatherCalibrator.calibrate("src/main/resources/day_1/input.txt"));
 	}
 }
