@@ -38,13 +38,37 @@ public class CubeGameTest {
     }
 
     @Test
-    public void testInput() throws IOException {
+    public void sumOfMinCubes() throws IOException {
+        CubeGame cb = new CubeGame();
+
+        int gameIdCount = getFileInput("src/test/resources/day_2/ex1.txt")
+                .map(cb::parseGamev2)
+                .reduce(Integer::sum)
+                .get();
+
+        assertEquals(2286, gameIdCount);
+
+    }
+
+    @Test
+    public void testInputv1() throws IOException {
         CubeGame cb = new CubeGame();
 
         var gameIdSum = getFileInput("src/test/resources/day_2/input.txt")
                 .map(cb::parseGamev1)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
+                .reduce(0, Integer::sum);
+
+        System.out.println("Game Id Sum: "+ gameIdSum);
+    }
+
+    @Test
+    public void testInputv2() throws IOException {
+        CubeGame cb = new CubeGame();
+
+        var gameIdSum = getFileInput("src/test/resources/day_2/input.txt")
+                .map(cb::parseGamev2)
                 .reduce(0, Integer::sum);
 
         System.out.println("Game Id Sum: "+ gameIdSum);

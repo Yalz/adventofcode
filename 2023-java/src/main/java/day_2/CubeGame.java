@@ -1,8 +1,6 @@
 package day_2;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -23,6 +21,7 @@ public class CubeGame {
                 .map(take -> Arrays.stream(take.split(","))
                         .map(String::trim)
                         .map(s -> getRegexGroups("(\\d+) (\\w+)", s))
+                        .filter(Objects::nonNull)
                         .map(matcher -> Map.of(matcher.group(2), Integer.parseInt(matcher.group(1))))
                         .flatMap(m -> m.entrySet().stream())
                         .collect(Collectors.toMap(Map.Entry::getKey,
@@ -34,23 +33,34 @@ public class CubeGame {
         else return Optional.empty();
     }
 
+    public Integer parseGamev2(String gameLine) {
+        String game = gameLine.split(":")[1];
+
+        return Arrays.stream(game.split(";"))
+                .map(take -> Arrays.stream(take.split(","))
+                        .map(String::trim)
+                        .map(s -> getRegexGroups("(\\d+) (\\w+)", s))
+                        .filter(Objects::nonNull)
+                        .map(matcher -> Map.of(matcher.group(2), Integer.parseInt(matcher.group(1))))
+                        .flatMap(m -> m.entrySet().stream())
+                        .collect(Collectors.toMap(Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                Integer::sum)))
+                .map(Map::entrySet)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        Math::max))
+                .values()
+                .stream()
+                .reduce(1, (i1, i2) -> i1*i2);
+    }
+
     private boolean isValidGame(Map<String, Integer> x) {
         return limits.entrySet()
                 .stream()
-                .allMatch(limit -> {
-                    if (x.containsKey(limit.getKey())){
-                        if (x.get(limit.getKey()) > limit.getValue()) {
-//                            System.err.println("!! " + limit.getKey() + " is over " + limit.getValue());
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    }
-                    else {
-                        return true;
-                    }
-
-                });
+                .allMatch(limit -> !x.containsKey(limit.getKey()) || x.get(limit.getKey()) <= limit.getValue());
     }
 
     public static Matcher getRegexGroups(String regex, String text) {
