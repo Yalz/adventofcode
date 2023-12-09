@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Engine {
-    private final String ANY_SYMBOLS = "([^\\d.])+";
-    private final String GEARS = "(\\*)+";
+    private static final String ANY_SYMBOLS = "([^\\d.])+";
+    private static final String GEARS = "(\\*)+";
     private final String ANY_NUMBER = "([\\d])+";
 
     List<String[]> schematic;
@@ -95,7 +95,7 @@ public class Engine {
         }
     }
 
-    public static boolean anyMatch(String regex, String text) {
+    private static boolean anyMatch(String regex, String text) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
