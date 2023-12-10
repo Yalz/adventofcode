@@ -1,9 +1,9 @@
 package day_2;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static common.RegEx.getRegexGroups;
 
 public class CubeGame {
 
@@ -54,22 +54,12 @@ public class CubeGame {
                         Math::max))
                 .values()
                 .stream()
-                .reduce(1, (i1, i2) -> i1*i2);
+                .reduce(1, (i1, i2) -> i1 * i2);
     }
 
     private boolean isValidGame(Map<String, Integer> x) {
         return limits.entrySet()
                 .stream()
                 .allMatch(limit -> !x.containsKey(limit.getKey()) || x.get(limit.getKey()) <= limit.getValue());
-    }
-
-    public static Matcher getRegexGroups(String regex, String text) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-
-        if (matcher.find()) {
-            return matcher;
-        }
-        return null;
     }
 }

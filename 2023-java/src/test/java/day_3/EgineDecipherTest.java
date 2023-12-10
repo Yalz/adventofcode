@@ -3,10 +3,8 @@ package day_3;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 
+import static common.FileReader.getFileInput;
 import static org.junit.Assert.assertEquals;
 
 public class EgineDecipherTest {
@@ -43,9 +41,5 @@ public class EgineDecipherTest {
         int product = EngineDecipher.getGearProduct(engine);
 
         assertEquals(84907174, product);
-    }
-
-    private Stream<String> getFileInput(String path) throws IOException {
-        return Files.readAllLines(Paths.get(path)).stream();
     }
 }

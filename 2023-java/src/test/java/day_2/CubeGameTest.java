@@ -3,11 +3,9 @@ package day_2;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.stream.Stream;
 
+import static common.FileReader.getFileInput;
 import static org.junit.Assert.*;
 
 public class CubeGameTest {
@@ -60,7 +58,7 @@ public class CubeGameTest {
                 .map(Optional::get)
                 .reduce(0, Integer::sum);
 
-        System.out.println("Game Id Sum: "+ gameIdSum);
+        System.out.println("Game Id Sum: " + gameIdSum);
     }
 
     @Test
@@ -71,10 +69,6 @@ public class CubeGameTest {
                 .map(cb::parseGamev2)
                 .reduce(0, Integer::sum);
 
-        System.out.println("Game Id Sum: "+ gameIdSum);
-    }
-
-    private Stream<String> getFileInput(String path) throws IOException {
-        return Files.readAllLines(Paths.get(path)).stream();
+        System.out.println("Game Id Sum: " + gameIdSum);
     }
 }

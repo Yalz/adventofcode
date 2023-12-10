@@ -5,8 +5,8 @@ import day_3.Coordinate.CoordinateDirection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static common.RegEx.anyMatch;
 
 public class Engine {
     private static final String ANY_SYMBOLS = "([^\\d.])+";
@@ -23,12 +23,12 @@ public class Engine {
 
     public List<Coordinate> getPartLocations(PartType partType) {
         List<Coordinate> coordinates = new ArrayList<>();
-        String regex = partType == PartType.ANY_PART ? ANY_SYMBOLS: GEARS;
+        String regex = partType == PartType.ANY_PART ? ANY_SYMBOLS : GEARS;
 
         for (int i = 0; i < schematic.size(); i++) {
             for (int j = 0; j < schematic.get(i).length; j++) {
-                if (anyMatch(regex, schematic.get(i)[j])){
-                    coordinates.add(new Coordinate(i,j));
+                if (anyMatch(regex, schematic.get(i)[j])) {
+                    coordinates.add(new Coordinate(i, j));
                 }
             }
         }
@@ -40,8 +40,8 @@ public class Engine {
         List<Integer> adjacentValues = new ArrayList<>();
         List<Coordinate> visitedCoordinates = new ArrayList<>();
 
-        for (int y = coordinate.y()-1; y<=coordinate.y()+1; y++){
-            for (int x = coordinate.x()-1; x<=coordinate.x()+1; x++){
+        for (int y = coordinate.y() - 1; y <= coordinate.y() + 1; y++) {
+            for (int x = coordinate.x() - 1; x <= coordinate.x() + 1; x++) {
                 if (!visitedCoordinates.contains(new Coordinate(y, x))) {
                     var nlr = getNumberValue(new Coordinate(y, x));
                     visitedCoordinates.addAll(nlr.visitedCoordinates);
@@ -54,7 +54,7 @@ public class Engine {
     }
 
     private NumberLookupResult getNumberValue(Coordinate coordinate) {
-        if(!anyMatch(ANY_NUMBER, schematic.get(coordinate.y())[coordinate.x()])) {
+        if (!anyMatch(ANY_NUMBER, schematic.get(coordinate.y())[coordinate.x()])) {
             return new NumberLookupResult(0, List.of());
         }
 
@@ -79,10 +79,10 @@ public class Engine {
     }
 
     private boolean hasNumberToDirection(Coordinate originalCoordinate, CoordinateDirection direction) {
-        Coordinate coordinate = direction == CoordinateDirection.LEFT ? originalCoordinate.moveLeft(): originalCoordinate.moveRight();
+        Coordinate coordinate = direction == CoordinateDirection.LEFT ? originalCoordinate.moveLeft() : originalCoordinate.moveRight();
         try {
             return anyMatch(ANY_NUMBER, schematic.get(coordinate.y())[coordinate.x()]);
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return false;
         }
     }
@@ -90,17 +90,11 @@ public class Engine {
     private Integer getValue(Coordinate coordinate) {
         try {
             return Integer.parseInt(schematic.get(coordinate.y())[coordinate.x()]);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
 
-    private static boolean anyMatch(String regex, String text) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-
-        return matcher.find();
+    record NumberLookupResult(int result, List<Coordinate> visitedCoordinates) {
     }
-
-    record NumberLookupResult(int result, List<Coordinate> visitedCoordinates){}
 }
