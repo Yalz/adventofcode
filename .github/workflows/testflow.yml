@@ -40,7 +40,7 @@ jobs:
             for file in "$1"/*; do
               if [[ -f "$file" ]]; then
                 echo "renaming $file"
-                mv "$file" "../.github/$(basename "$file").jar"
+                mv "$file" ".github/$(basename "$file").jar"
               elif [[ -d "$file" ]]; then
                 process_files "$file"
               fi
