@@ -36,12 +36,19 @@ jobs:
 
       - name: Rename JARs
         run: |
-          for file in artifacts/*; do
-            if [[ -f "$file" ]]; then
-              echo "processing file"
-              mv "$file" "../.github/$(basename "$file").jar"
-            fi
-          done
+            process_files() {
+              for file in "$1"/*; do
+                if [[ -f "$file" ]]; then
+                  mv "$file" "../.github/$(basename "$file").jar"
+                elif [[ -d "$file" ]]; then
+                  process_files "$file"
+                fi
+              done
+          }
+
+        # Start the recursion from the current directory
+          process_files artifacts
+
           rm ./artifacts -r
 
       - name: Use JARs
