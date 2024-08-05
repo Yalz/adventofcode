@@ -37,9 +37,10 @@ jobs:
       - name: Rename JARs
         run: |
           for file in artifacts/*; do
-            mv "$file" "${file}.jar"
+            if [ -f "$file" ]; then
+              mv "$file" "../.github/$(basename "$file").jar"
+            fi
           done
-          mv ./artifacts/*.jar ./.github
           rm ./artifacts -r
 
       - name: Use JARs
