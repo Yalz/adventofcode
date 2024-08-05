@@ -37,7 +37,7 @@ jobs:
       - name: Rename JARs
         run: |
           for file in artifacts/*; do
-            if [ -f "$file" ]; then
+            if [[ -f "$file" ]]; then
               echo "processing file"
               mv "$file" "../.github/$(basename "$file").jar"
             fi
