@@ -38,7 +38,8 @@ jobs:
         run: |
           process_files() {
             for file in "$1"/*; do
-              if [[ -f "$file" && "$file" != *.* ]]; then
+              if [[ -f "$file" ]]; then
+                echo "renaming $file"
                 mv "$file" "../.github/$(basename "$file").jar"
               elif [[ -d "$file" ]]; then
                 process_files "$file"
@@ -46,7 +47,7 @@ jobs:
             done
           }
 
-          process_files artifacts
+          process_files ./artifacts
         
           rm -r ./artifacts
 
