@@ -27,19 +27,20 @@ jobs:
     needs: build
 
     steps:
+      - uses: actions/checkout@v4
       - name: Download JARs
         uses: actions/download-artifact@v2
         with:
           name: my-jars
-          path: jars
+          path: .github
 
       - name: Rename JARs
         run: |
-          for file in jars/*; do
+          for file in .github/*; do
             mv "$file" "${file}.jar"
           done
 
       - name: Use JARs
         run: |
-          ls jars
+          ls -R
           # Add your commands to use the JARs here
