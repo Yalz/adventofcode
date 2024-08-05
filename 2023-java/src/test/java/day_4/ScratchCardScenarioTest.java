@@ -53,7 +53,7 @@ public class ScratchCardScenarioTest {
         new ScratchCardDeck(getFileInput("src/test/resources/day_4/ex1.txt")).getScratchCardTrophy();
     }
 
-    @Test
+    /*@Test*/
     public void fiddling() throws IOException {
         var scratchCardDeck = new ScratchCardDeck(getFileInput("src/test/resources/day_4/ex1.txt"));
 
