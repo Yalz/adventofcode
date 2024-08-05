@@ -32,15 +32,15 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: my-jars
-          path: .github
+          path: jars
 
       - name: Rename JARs
         run: |
-          for file in .github/*; do
-            mv "$file" "${file}.jar"
+          for file in jars/*; do
+            mv "$file" ".github/${file}.jar"
           done
 
       - name: Use JARs
         run: |
-          ls -R
+          ls .github -R
           # Add your commands to use the JARs here
