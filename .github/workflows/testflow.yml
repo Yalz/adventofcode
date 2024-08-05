@@ -34,23 +34,6 @@ jobs:
           name: my-jars
           path: ./github
 
-      - name: Rename JARs
-        run: |
-          process_files() {
-            for file in "$1"/*; do
-              if [[ -f "$file" ]]; then
-                echo "renaming $file"
-                mv "$file" ".github/$(basename "$file").jar"
-              elif [[ -d "$file" ]]; then
-                process_files "$file"
-              fi
-            done
-          }
-
-          process_files ./artifacts
-        
-          rm -r ./artifacts
-
       - name: Use JARs
         run: |
           find ./
