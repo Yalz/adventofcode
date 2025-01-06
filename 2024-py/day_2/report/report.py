@@ -22,7 +22,7 @@ class Report:
     def overview(self):
         print(self.report_values)
 
-    def validate_report(self, debug):
+    def validate_report(self, debug=False):
         valid_reports = 0
         for v in self.report_values:
             report_valid = validate_level(v, debug, self.tolerate_bad_level)

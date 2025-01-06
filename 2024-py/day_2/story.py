@@ -2,4 +2,5 @@ from day_2.report.report import Report
 
 report = Report("data/input.txt")
 
-print(report.validate_report(False))
+print(Report("data/input.txt").validate_report())
+print(Report("data/input.txt", True).validate_report())
