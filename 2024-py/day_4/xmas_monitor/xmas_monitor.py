@@ -53,6 +53,10 @@ def find_mas_x(lines: np.ndarray):
     seq2 = ".A."
     seq3 = "M.S"
 
+    seq1d = ".M."
+    seq2d = "MAS"
+    seq3d = ".S."
+
     times_found = 0
 
     for _ in range(4):
@@ -69,6 +73,15 @@ def find_mas_x(lines: np.ndarray):
                             for _ in re.finditer(seq3, substr):
                                 times_found += 1
                                 debug("Found MAS X at index", idx)
+            for match in re.finditer(seq1d, ''.join(x)):
+                if idx + 1 < len(lines):
+                    substr = ''.join(lines[idx + 1])[match.start():match.end()]
+                    for _ in re.finditer(seq2d, substr):
+                        if idx + 2 < len(lines):
+                            substr = ''.join(lines[idx + 2])[match.start():match.end()]
+                            for _ in re.finditer(seq3d, substr):
+                                times_found += 1
+                                print("Found Cross MAS X at index", idx)
         debug("Rotating")
         lines = np.rot90(lines)
 
