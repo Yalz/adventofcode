@@ -12,6 +12,14 @@ def test_wander():
 
     assert 41 == guard.wander()
 
+def test_td():
+    file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-1.txt'))
+    grid = file_to_line_arr(file_path, True)
+
+    guard = WanderingGuard(grid)
+
+    assert 15 == guard.wander()
+
 
 def test_input():
     file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/input.txt'))
