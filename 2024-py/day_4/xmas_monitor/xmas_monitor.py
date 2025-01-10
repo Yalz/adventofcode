@@ -49,13 +49,9 @@ def diagonals_of(a: numpy.ndarray) -> [str]:
 
 
 def find_mas_x(lines: np.ndarray):
-    seq1 = "M.S"
+    seq1 = "(?=(M.S))"
     seq2 = ".A."
     seq3 = "M.S"
-
-    seq1d = ".M."
-    seq2d = "MAS"
-    seq3d = ".S."
 
     times_found = 0
 
@@ -66,22 +62,13 @@ def find_mas_x(lines: np.ndarray):
         for idx, x in enumerate(lines):
             for match in re.finditer(seq1, ''.join(x)):
                 if idx + 1 < len(lines):
-                    substr = ''.join(lines[idx + 1])[match.start():match.end()]
+                    substr = ''.join(lines[idx + 1])[match.start():match.start()+3]
                     for _ in re.finditer(seq2, substr):
                         if idx + 2 < len(lines):
-                            substr = ''.join(lines[idx + 2])[match.start():match.end()]
+                            substr = ''.join(lines[idx + 2])[match.start():match.start()+3]
                             for _ in re.finditer(seq3, substr):
                                 times_found += 1
                                 debug("Found MAS X at index", idx)
-            for match in re.finditer(seq1d, ''.join(x)):
-                if idx + 1 < len(lines):
-                    substr = ''.join(lines[idx + 1])[match.start():match.end()]
-                    for _ in re.finditer(seq2d, substr):
-                        if idx + 2 < len(lines):
-                            substr = ''.join(lines[idx + 2])[match.start():match.end()]
-                            for _ in re.finditer(seq3d, substr):
-                                times_found += 1
-                                print("Found Cross MAS X at index", idx)
         debug("Rotating")
         lines = np.rot90(lines)
 
