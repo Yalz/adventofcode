@@ -51,8 +51,7 @@ def test_find_mas_x():
 
 	print()
 
-	# assert 9 == find_mas_x(grid)
-
+	assert 9 == find_mas_x(grid)
 	file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-1.txt'))
 	grid = parse_grid(file_to_line_arr(file_path))
 
