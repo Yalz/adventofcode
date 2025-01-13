@@ -12,8 +12,25 @@ def test_wander():
 
     assert 41 == guard.wander()
 
+def test_alternate_routes():
+    file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/example.txt'))
+    grid = file_to_line_arr(file_path, True)
+
+    guard = WanderingGuard(grid)
+    guard.wander()
+
+    assert 6 == guard.alternate_routes
+
 def test_td():
     file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-1.txt'))
+    grid = file_to_line_arr(file_path, True)
+
+    guard = WanderingGuard(grid)
+
+    assert 15 == guard.wander()
+
+def test_td2():
+    file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-2.txt'))
     grid = file_to_line_arr(file_path, True)
 
     guard = WanderingGuard(grid)
@@ -28,3 +45,5 @@ def test_input():
     guard = WanderingGuard(grid)
 
     print("Part 1: ", guard.wander())
+    print("Part 2: ", guard.alternate_routes)
+
