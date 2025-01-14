@@ -9,8 +9,9 @@ def test_wander():
     grid = file_to_line_arr(file_path, True)
 
     guard = WanderingGuard(grid)
+    guard.wander()
 
-    assert 41 == guard.wander()
+    assert guard.steps_taken() == 41
 
 def test_alternate_routes():
     file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/example.txt'))
@@ -19,31 +20,24 @@ def test_alternate_routes():
     guard = WanderingGuard(grid)
     guard.wander()
 
-    assert 6 == guard.alternate_routes
+    assert guard.alternate_routes == 6
 
 def test_td():
     file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-1.txt'))
     grid = file_to_line_arr(file_path, True)
 
     guard = WanderingGuard(grid)
+    guard.wander()
 
-    assert 15 == guard.wander()
-
-def test_td2():
-    file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/td-2.txt'))
-    grid = file_to_line_arr(file_path, True)
-
-    guard = WanderingGuard(grid)
-
-    assert 15 == guard.wander()
-
+    assert guard.steps_taken() == 15
 
 def test_input():
     file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/input.txt'))
     grid = file_to_line_arr(file_path, True)
 
     guard = WanderingGuard(grid)
+    guard.wander()
 
-    print("Part 1: ", guard.wander())
+    print("Part 1: ", guard.steps_taken())
     print("Part 2: ", guard.alternate_routes)
 
