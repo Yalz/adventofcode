@@ -12,15 +12,3 @@ def file_to_line_arr(file_path, as_2d=False):
 			grid.append(content)
 
 	return grid
-
-def file_to_line_arr(file_path):
-	file = open(file_path, "r")
-	grid = []
-	while True:
-		content = file.readline()
-		if not content:
-			break
-		content = content.replace("\n", "")
-		grid.append(content)
-
-	return grid
