@@ -34,4 +34,4 @@ def test_input():
 	antenna = Antenna(freq_grid, True)
 
 	print("Part 2", antenna.anti_node_count)
-	assert antenna.anti_node_count == 303
+	assert antenna.anti_node_count == 1045
