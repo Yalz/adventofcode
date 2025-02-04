@@ -12,3 +12,8 @@ def file_to_line_arr(file_path, as_2d=False):
 			grid.append(content)
 
 	return grid
+
+def file_to_str(file_path):
+	file = open(file_path, "r")
+	content = file.read()
+	return content
