@@ -2,6 +2,7 @@ import os
 
 import helper.file_utils
 from day_11.magic_stones.magicstones import MagicStones
+from day_11.magic_stones.magicstones_perfo_fix import roll_mem
 
 
 def test_roll_basic():
@@ -9,6 +10,11 @@ def test_roll_basic():
 
 	stones.roll()
 	assert stones.hand() == '1 2024 1 0 9 9 2021976'
+
+	# Alternative solution
+	stones_str = list(map(int, '0 1 10 99 999'.split(' ')))
+
+	assert sum(roll_mem(stone, 1) for stone in stones_str) == 7
 
 def test_roll_advanced():
 	stones = MagicStones('125 17')
@@ -32,20 +38,24 @@ def test_roll_advanced():
 		stones.roll()
 	assert stones.stone_count() == 55312
 
+	# Alternative solution
+	stones_str = list(map(int, '125 17'.split(' ')))
+
+	assert sum(roll_mem(stone, 6) for stone in stones_str) == 22
+	assert sum(roll_mem(stone, 25) for stone in stones_str) == 55312
+
 def test_input():
 	file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../data/input.txt'))
+	stones_str = list(map(int, open('../data/input.txt').readline().split(' ')))
 	stones = MagicStones(helper.file_utils.file_to_str(file_path))
 
 	for i in range(25):
 		stones.roll()
 		print("Roll :", i, "Stone count:", stones.stone_count())
 
-
-
 	print("Part 1:", stones.stone_count())
 
-	# for i in range(25, 75):
-	# 	stones.roll()
-	# 	print("Roll :", i, "Stone count:", stones.stone_count())
-	#
-	# print("Part 2:", stones.stone_count())
+	print("Using new Perfor code: Pt1 + Pt2:")
+
+	print(sum(roll_mem(stone, 25) for stone in stones_str))
+	print(sum(roll_mem(stone, 75) for stone in stones_str))
